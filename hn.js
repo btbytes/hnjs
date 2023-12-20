@@ -6,7 +6,7 @@ const byTag = (el, tg) => (el ? el.getElementsByTagName(tg) : []);
 
 const allof = (cl) => byClass(document, cl);
 
-const classes = (el) => (el && el.className && el.className.split(" ")) || [];
+const classes = (el) => el?.className?.split(" ") || [];
 
 const hasClass = (el, cl) => afind(cl, classes(el));
 
@@ -32,7 +32,7 @@ const uptil = (el, f) => (el ? (f(el) ? el : uptil(el.parentNode, f)) : null);
 
 const upclass = (el, cl) => uptil(el, (x) => hasClass(x, cl));
 
-const html = (el) => (el ? el.innerHTML : null);
+const html = (el) => el?.innerHTML || null;
 
 const attr = (el, name) => el.getAttribute(name);
 
@@ -41,7 +41,7 @@ const tonum = (x) => {
   return isNaN(n) ? null : n;
 };
 
-const remEl = (el) => el.parentNode.removeChild(el);
+const remEl = (el) => el?.parentNode?.removeChild(el);
 
 const posf = (f, a) => {
   for (let i = 0; i < a.length; i++) {
@@ -50,17 +50,16 @@ const posf = (f, a) => {
   return -1;
 };
 
-const apos = (x, a) =>
-  typeof x == "function" ? posf(x, a) : Array.prototype.indexOf.call(a, x);
+const apos = (x, a) => (typeof x == "function" ? posf(x, a) : a.indexOf(x));
 
 const afind = (x, a) => {
   const i = apos(x, a);
   return i >= 0 ? a[i] : null;
 };
 
-const acut = (a, m, n) => Array.prototype.slice.call(a, m, n);
+const acut = (a, m, n) => a.slice(m, n);
 
-const aeach = (fn, a) => Array.prototype.forEach.call(a, fn);
+const aeach = (fn, a) => a.forEach(fn);
 
 const arem = (a, x) => {
   const i = apos(x, a);
